@@ -54,8 +54,12 @@
 <!ELEMENT file (allow|disallow)*>
 
 <!--
-  name - The name of the file.
-  If the regex attribute is "true" the name is interpreted as a regular expression.
+  name - The file name without its extension or directory path.
+  For example, <file name="MyClass"> applies to MyClass.java in the
+  enclosing package. If the regex attribute is "true" the name is
+  interpreted as a regular expression that must match the whole file name
+  without its extension, for example <file name=".*Test" regex="true">
+  applies to MyClassTest.java.
 
   regex - File name has to be interpreted as regular expression.
 -->
@@ -83,10 +87,14 @@
   but will not match if the option is set.
 
   local-only - Indicates that the rule is to apply only to the current
-  package and not to subpackages.
+  package and not to subpackages. For example, <allow pkg="java.util"
+  local-only="true"/> allows java.util imports in the current package
+  without allowing them in its subpackages.
 
   regex - Indicates that the class, package, or module name has to be interpreted as
-  regular expression.
+  regular expression. For example, <allow class="java\.util\..*" regex="true"/>
+  allows classes whose fully qualified names match java.util followed by a dot
+  and any remaining characters.
 -->
 <!ENTITY % attlist.importrule "
   pkg CDATA #IMPLIED
